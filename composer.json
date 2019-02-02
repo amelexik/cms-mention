@@ -1,0 +1,39 @@
+{
+  "name": "skeeks/cms-mention",
+  "version": "1.0.0",
+  "description": "Mention for SkeekS CMS",
+  "keywords": [
+    "yii",
+    "skeeks",
+    "framework",
+    "component",
+    "mention"
+  ],
+  "homepage": "https://cms.skeeks.com/",
+  "type": "yii2-extension",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Alex Melnik",
+      "email": "amelexik@gmail.com"
+    }
+  ],
+  "require": {
+    "skeeks/cms": "~5.0 || dev-master",
+    "voskobovich/yii2-linker-behavior": "^4.1",
+    "kartik-v/yii2-widget-select2": "@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "skeeks\\cms\\mention\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "extra": {
+    "config-plugin": {
+      "console": "src/config/console.php",
+      "web": "src/config/web.php"
+    }
+  }
+}
