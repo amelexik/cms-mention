@@ -40,7 +40,7 @@ class CmsMentionComponent extends \skeeks\cms\base\Component
     public function renderConfigForm(\yii\widgets\ActiveForm $form)
     {
 
-        echo $form->fieldSet(\Yii::t('skeeks/offer', 'Content setting'));
+        echo $form->fieldSet(\Yii::t('cms/mention', 'Content setting'));
         echo $form->fieldSelectMulti($this, 'relatedElementContentIds', CmsContent::getDataForSelect());
         echo $form->fieldSetEnd();
     }

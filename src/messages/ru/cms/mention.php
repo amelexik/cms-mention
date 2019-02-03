@@ -17,9 +17,12 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Main' => 'Основное',
-    'Telegram Bot' => 'Telegram Бот',
-    'botName' => 'Имя бота',
-    'botToken' => 'Токен',
-    'chatId' => 'ID чата',
+    'Content Type 1 primary key' => 'Content Type 1 primary key',
+    'Content Type 2  primary key' => 'Content Type 2  primary key',
+    'Content setting' => 'Настройки контента',
+    'Element 1 primary key' => 'Element 1 primary key',
+    'Element 2 primary key' => 'Element 2 primary key',
+    'Mention' => 'Упоминания',
+    'Mentions' => 'Упоминания',
+    'Search for content items of the following types' => 'Поиск элементов контента следующих типов',
 ];
