@@ -18,6 +18,7 @@ use yii\validators\SafeValidator;
 Class CmsMentionBehavior extends Behavior
 {
     private $_adminMentions;
+    private $_mentions;
     private $_mentionLinks;
     public $mentionSuggest;
 
@@ -69,6 +70,36 @@ Class CmsMentionBehavior extends Behavior
         }
     }
 
+
+    public function getMentions($group = true)
+    {
+        if ($this->_mentions)
+            return $this->_mentions;
+        if ($links = $this->getMentionLinks()) {
+            foreach ($links as $cmsContentId => $ids) {
+                $ids = array_keys($ids);
+                if ($cmsContent = CmsContent::find()->where(['id' => $cmsContentId])->one()) {
+                    if ($cmsContent->model_class) {
+                        $model = new $cmsContent->model_class;
+                        $models = $model::find()->where(['in', $model->idColumn, $ids])->all();
+                    } else {
+                        $models = CmsContentElement::find()->where(['in', 'id', $ids])->andWhere(['content_id' => $cmsContentId])->all();
+                    }
+
+                    if ($models) {
+                        foreach ($models as $model) {
+                            if ($group)
+                                $this->_mentions[$cmsContentId][$model->primaryKey] = $model;
+                            else
+                                $this->_mentions[] = $model;
+                        }
+                    }
+                }
+            }
+            return $this->_mentions;
+        }
+    }
+
     public function getMentionLinks()
     {
         if ($this->_mentionLinks)
@@ -99,7 +130,7 @@ Class CmsMentionBehavior extends Behavior
 
     public function beforeDelete()
     {
-        $this->deleteOne($this->owner->content_id,$this->owner->primaryKey);
+        $this->deleteOne($this->owner->content_id, $this->owner->primaryKey);
     }
 
 
