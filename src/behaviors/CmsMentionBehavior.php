@@ -81,7 +81,10 @@ Class CmsMentionBehavior extends Behavior
                 if ($cmsContent = CmsContent::find()->where(['id' => $cmsContentId])->one()) {
                     if ($cmsContent->model_class) {
                         $model = new $cmsContent->model_class;
-                        $models = $model::find()->where(['in', $model->idColumn, $ids])->all();
+                        $models = $model::find()
+                            ->where(['in', $model->idColumn, $ids])
+                            ->published()
+                            ->all();
                     } else {
                         $models = CmsContentElement::find()->where(['in', 'id', $ids])->andWhere(['content_id' => $cmsContentId])->all();
                     }
