@@ -46,8 +46,10 @@ Class CmsMentionBehavior extends Behavior
 
     public function getAdminMentions()
     {
+        /*
         if ($this->_adminMentions)
             return $this->_adminMentions;
+        */
         if ($links = $this->getMentionLinks()) {
             foreach ($links as $cmsContentId => $ids) {
                 $ids = array_keys($ids);
