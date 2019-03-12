@@ -100,7 +100,8 @@ Class CmsMentionBehavior extends Behavior
                     }
                 }
             }
-            krsort($this->_mentions, SORT_NUMERIC);
+            if(is_array($this->_mentions))
+                krsort($this->_mentions, SORT_NUMERIC);
             return $this->_mentions;
         }
     }
