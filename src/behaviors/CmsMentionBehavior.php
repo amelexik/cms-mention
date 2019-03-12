@@ -73,12 +73,14 @@ Class CmsMentionBehavior extends Behavior
     }
 
 
-    public function getMentions($group = true)
+    public function getMentions($excl = [])
     {
         if ($this->_mentions)
             return $this->_mentions;
         if ($links = $this->getMentionLinks()) {
             foreach ($links as $cmsContentId => $ids) {
+                if(array_key_exists($cmsContentId, $excl))
+                    break;
                 $ids = array_keys($ids);
                 if ($cmsContent = CmsContent::find()->where(['id' => $cmsContentId])->one()) {
                     if ($cmsContent->model_class) {
@@ -93,23 +95,19 @@ Class CmsMentionBehavior extends Behavior
 
                     if ($models) {
                         foreach ($models as $model) {
-                            if ($group)
-                                $this->_mentions[$cmsContentId][$model->primaryKey] = $model;
-                            else
-                                $this->_mentions[] = $model;
+                            $this->_mentions[$model->published_at] = $model;
                         }
                     }
                 }
             }
+            krsort($this->_mentions, SORT_NUMERIC);
             return $this->_mentions;
         }
     }
 
     public function getMentionLinks()
     {
-        if ($this->_mentionLinks)
-            return $this->_mentionLinks;
-        if ($this->owner->isNewRecord) return $this->_mentionLinks;
+        if ($this->owner->isNewRecord) return [];
 
         if ($mentionModel = Mention::find()->setMentionObject($this->owner->content_id, $this->owner->primaryKey)->all()) {
             foreach ($mentionModel as $mention) {
