@@ -79,7 +79,7 @@ Class CmsMentionBehavior extends Behavior
             return $this->_mentions;
         if ($links = $this->getMentionLinks()) {
             foreach ($links as $cmsContentId => $ids) {
-                if(array_key_exists($cmsContentId, $excl))
+                if(in_array($cmsContentId, $excl))
                     break;
                 $ids = array_keys($ids);
                 if ($cmsContent = CmsContent::find()->where(['id' => $cmsContentId])->one()) {
