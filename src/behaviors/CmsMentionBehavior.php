@@ -18,7 +18,7 @@ use yii\validators\SafeValidator;
 Class CmsMentionBehavior extends Behavior
 {
     private $_adminMentions;
-    private $_mentions;
+    private $_mentions = [];
     private $_mentionLinks;
     public $mentionSuggest;
 
@@ -100,8 +100,7 @@ Class CmsMentionBehavior extends Behavior
                     }
                 }
             }
-            if(is_array($this->_mentions))
-                krsort($this->_mentions, SORT_NUMERIC);
+            krsort($this->_mentions, SORT_NUMERIC);
             return $this->_mentions;
         }
     }
